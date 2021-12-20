@@ -33,7 +33,7 @@ public class AlunoController {
 	public Aluno listaAlunoUnico(@PathVariable(value="id") long id){ //@PathVariable indica que o valor da variável virá de uma informação da rota
 		return alunoRepository.findById(id);
 	}
-	
+
 	//salva o aluno
 	@PostMapping("/aluno")
 	public Aluno salvaAluno(@RequestBody Aluno aluno) { //@RequestBody indica que o valor do objeto virá do corpo da requisição
