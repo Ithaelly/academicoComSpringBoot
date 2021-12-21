@@ -22,7 +22,7 @@ public class Aluno {
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="aluno_seq") //os dados dessa chave serão criados pelo banco de dado
 	@SequenceGenerator(name = "aluno_seq", schema = "graduacao", sequenceName = "aluno_seq", allocationSize = 1)
 	@Column(name="id") //nome da coluna no bd
-	private int id;
+	private long id;
 	
 	@Column(name="matricula") 
 	private String matricula;	
@@ -45,11 +45,11 @@ public class Aluno {
 	}
 
 	//CRIANDO GETS E SETS
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
