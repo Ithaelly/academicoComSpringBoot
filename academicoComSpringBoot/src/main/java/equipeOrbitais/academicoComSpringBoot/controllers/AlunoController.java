@@ -39,4 +39,44 @@ public class AlunoController {
 	public Aluno salvaAluno(@RequestBody Aluno aluno) { //@RequestBody indica que o valor do objeto virá do corpo da requisição
 		return alunoRepository.save(aluno);
 	}
+	
+	//deletar aluno
+	@DeleteMapping("/aluno/{id}")
+    public ResponseEntity<Object> deleteAluno(@PathVariable(value = "id") long id){
+		Optional<Aluno> aluno =  alunoRepository.findById(id);
+        if(aluno.isPresent()){
+           alunoRepository.delete(aluno.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+		
+	/*@DeleteMapping(value = "/aluno/{matricula}")
+    public ResponseEntity<Object> deleteAluno(@PathVariable(value = "matricula") String matricula){
+		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
+        if(aluno.isPresent()){
+           alunoRepository.delete(aluno.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }*/
+	
+	//atualizar
+	@PutMapping("/aluno/{id}")
+    public ResponseEntity<Aluno> Put(@PathVariable(value = "id") long id,  @RequestBody Aluno newAluno){
+        Optional<Aluno> oldAluno = alunoRepository.findById(id);
+        if(oldAluno.isPresent()){
+        	Aluno aluno = oldAluno.get();
+        	aluno.setMatricula(newAluno.getMatricula());
+        	aluno.setAnoEntrada(newAluno.getAnoEntrada());
+        	//aluno.setPessoa(Pessoa pessoa);
+            alunoRepository.save(aluno);
+            return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+	
 }
