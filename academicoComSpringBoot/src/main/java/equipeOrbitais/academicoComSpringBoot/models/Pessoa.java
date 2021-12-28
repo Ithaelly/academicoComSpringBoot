@@ -1,9 +1,24 @@
 package equipeOrbitais.academicoComSpringBoot.models;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Data //essa anotação já cria os gets e sets
 @Entity
 @Table(schema = "comum", name = "pessoa") //nome da tabela no bd
 public class Pessoa {
@@ -22,58 +37,4 @@ public class Pessoa {
 	//1 pessoa - N alunos
 	@OneToMany(fetch = FetchType.EAGER , mappedBy = "pessoa")
 	private List<Aluno> listarAlunos = new ArrayList<>();
-
-	//CRIANDO CONSTRUTORES
-	public Pessoa() {
-	}
-	
-	public Pessoa(String cpf, String nome, int id) {
-		this.cpf = cpf;
-		this.nome = nome;
-		this.id = id;
-	}
-	
-	public Pessoa(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-    }
-	
-
-	//CRIANDO GETS E SETS
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-    
-   public List<Aluno> getListarAlunos() {
-		return listarAlunos;
-	}
-
-	public void setListarAlunos(List<Aluno> listarAlunos) {
-		this.listarAlunos = listarAlunos;
-	}
-
-@Override
-    public String toString() {
-        return "Nome: " + nome + "\nCPF: " + cpf + "\n";
-    }
 }
