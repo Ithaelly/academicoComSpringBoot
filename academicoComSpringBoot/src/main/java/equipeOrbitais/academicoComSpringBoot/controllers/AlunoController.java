@@ -12,35 +12,40 @@ import equipeOrbitais.academicoComSpringBoot.dto.AlunoDTO;
 import equipeOrbitais.academicoComSpringBoot.models.Aluno;
 import equipeOrbitais.academicoComSpringBoot.models.Pessoa;
 import equipeOrbitais.academicoComSpringBoot.repository.AlunoRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController //permite definir um controller com características REST. Defini que essa classe AlunoController é a que vai receber as requisições http
 @RequestMapping(value="/api") // permite definir uma rota. Caso não seja informado o método HTTP da rota, ela será definida para todos os métodos.
+@CrossOrigin(origins = "*")
+@Api(value="Academico com Spring Boot")
 
 public class AlunoController {
+	
 	Pessoa pessoa = new Pessoa();
 	@Autowired //delega ao Spring Boot a inicialização do objeto;
 	AlunoRepository alunoRepository;
 	
-	//retorna todos os alunos cadastrados
+	@ApiOperation(value="Retorna uma lista de alunos cadastrados")
 	@GetMapping("/alunos")
 	public List<AlunoDTO> listaAlunos(){
 		List<Aluno> alunos = alunoRepository.findAll();
 		return AlunoDTO.convert(alunos);	
 	}
 	
-	//retorna os dados de um aluno escolhendo pelo id dele
+	@ApiOperation(value="Retorna um unico aluno pelo id dele")
 	@GetMapping("/aluno/{id}")
 	public Optional<Aluno> listaAlunoUnico(@PathVariable(value="id") long id){ //@PathVariable indica que o valor da variável virá de uma informação da rota
 		return alunoRepository.findById(id);
 	}
 
-	//salva o aluno
+	@ApiOperation(value="Salva o aluno")
 	@PostMapping("/aluno")
 	public Aluno salvaAluno(@RequestBody Aluno aluno) { //@RequestBody indica que o valor do objeto virá do corpo da requisição
 		return alunoRepository.save(aluno);
 	}
 	
-	//deletar aluno pela matricula
+	@ApiOperation(value="Deleta o aluno pela matricula")
 	@DeleteMapping(value = "/aluno/{matricula}")
     public ResponseEntity<Object> deleteAluno(@PathVariable(value = "matricula") String matricula){
 		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
@@ -52,8 +57,8 @@ public class AlunoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
-	//atualizar pela matricula
-	@PutMapping("/aluno/{id}")
+	@ApiOperation(value="Atualiza o aluno pela matricula")
+	@PutMapping("/aluno/{matricula}")
     public ResponseEntity<Aluno> Put(@PathVariable(value = "matricula") String matricula,  @RequestBody Aluno newAluno){
         Optional<Aluno> oldAluno = alunoRepository.findByMatricula(matricula);
         if(oldAluno.isPresent()){
@@ -67,16 +72,4 @@ public class AlunoController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-	
-	/*@DeleteMapping("/aluno/{id}")
-    public ResponseEntity<Object> deleteAluno(@PathVariable(value = "id") long id){
-		Optional<Aluno> aluno =  alunoRepository.findById(id);
-        if(aluno.isPresent()){
-           alunoRepository.delete(aluno.get());
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }*/
-	
 }
