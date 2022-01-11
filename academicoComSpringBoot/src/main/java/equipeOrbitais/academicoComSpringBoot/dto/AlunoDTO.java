@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import equipeOrbitais.academicoComSpringBoot.models.Aluno;
-import equipeOrbitais.academicoComSpringBoot.models.Pessoa;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,13 +17,13 @@ public class AlunoDTO {
 		private long id;
 		private String matricula;	
 		private int anoEntrada;	
-		private Pessoa pessoa;
+		private PessoaDTO pessoaDTO;
 		
 		public AlunoDTO(Aluno aluno) {
 			this.id = aluno.getId();
 			this.matricula = aluno.getMatricula();
 			this.anoEntrada = aluno.getAnoEntrada();
-			this.pessoa = aluno.getPessoa();
+			this.pessoaDTO = new PessoaDTO(aluno.getPessoa());
 		}
 		
 		public static List<AlunoDTO> convert(List <Aluno> aluno){
