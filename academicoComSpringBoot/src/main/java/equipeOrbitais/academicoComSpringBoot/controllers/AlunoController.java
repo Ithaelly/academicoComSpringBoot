@@ -38,13 +38,20 @@ public class AlunoController {
 	public Optional<Aluno> listaAlunoUnico(@PathVariable(value="id") long id){ //@PathVariable indica que o valor da variável virá de uma informação da rota
 		return alunoRepository.findById(id);
 	}
-
+	
 	@ApiOperation(value="Salva o aluno")
 	@PostMapping("/aluno")
-	public Aluno salvaAluno(@RequestBody Aluno aluno) { //@RequestBody indica que o valor do objeto virá do corpo da requisição
-		return alunoRepository.save(aluno);
-	}
-	
+    public ResponseEntity<Aluno> Post(@RequestBody Aluno aluno){		
+        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
+        if(oldAluno.isEmpty()){
+        	alunoRepository.save(aluno);
+        	return new ResponseEntity<Aluno>(HttpStatus.OK);     	     
+        }
+        else {
+        	return new ResponseEntity<>(HttpStatus.CONFLICT);     	
+        }
+    }
+
 	@ApiOperation(value="Deleta o aluno pela matricula")
 	@DeleteMapping(value = "/aluno/{matricula}")
     public ResponseEntity<Object> deleteAluno(@PathVariable(value = "matricula") String matricula){
@@ -65,11 +72,10 @@ public class AlunoController {
         	Aluno aluno = oldAluno.get();
         	aluno.setMatricula(newAluno.getMatricula());
         	aluno.setAnoEntrada(newAluno.getAnoEntrada());
-        	//aluno.setPessoa(Pessoa pessoa);
             alunoRepository.save(aluno);
             return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
         }
         else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

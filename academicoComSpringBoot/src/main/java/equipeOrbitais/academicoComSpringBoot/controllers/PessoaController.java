@@ -35,12 +35,19 @@ public class PessoaController {
 	public Optional<Pessoa> listaPessoaUnica(@PathVariable(value="id") long id){ //@PathVariable indica que o valor da variável virá de uma informação da rota
 		return pessoaRepository.findById(id);
 	}
-
+	
 	@ApiOperation(value="Salva a pessoa")
 	@PostMapping("/pessoa")
-	public Pessoa salvaPessoa(@RequestBody Pessoa pessoa) { //@RequestBody indica que o valor do objeto virá do corpo da requisição
-		return pessoaRepository.save(pessoa);
-	}
+    public ResponseEntity<Pessoa> Post(@RequestBody Pessoa pessoa){		
+        Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(pessoa.getCpf());
+        if(oldPessoa.isEmpty()){
+        	pessoaRepository.save(pessoa);
+        	return new ResponseEntity<Pessoa>(HttpStatus.OK);     	     
+        }
+        else {
+        	return new ResponseEntity<>(HttpStatus.CONFLICT);    	
+        }
+    }
 	
 	@ApiOperation(value="Deleta a pessoa pelo cpf")
 	@DeleteMapping(value = "/pessoa/{cpf}")

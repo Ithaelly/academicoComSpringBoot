@@ -9,4 +9,6 @@ import equipeOrbitais.academicoComSpringBoot.models.Aluno;
 interface AlunoRepository e utilizar esse métodos no nosso modelo Aluno, facilitando a persistência no bd, sem precisar criar DAO*/
 public interface AlunoRepository extends JpaRepository<Aluno, Long>{  //JpaRepository<nomeDaEntidade, tipoDoID>
 	Optional<Aluno> findByMatricula(String matricula);
+
+	void save(Optional<Aluno> aluno);
 }

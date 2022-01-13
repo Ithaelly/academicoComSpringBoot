@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor //cria um construtor com todos
 @NoArgsConstructor //cria um construtor vazio
 
-
 public class PessoaDTO {
 		private long id;
 		private String nome;
