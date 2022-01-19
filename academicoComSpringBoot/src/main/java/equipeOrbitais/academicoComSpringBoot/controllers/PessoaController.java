@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import equipeOrbitais.academicoComSpringBoot.dto.PessoaDTO;
@@ -13,7 +14,8 @@ import equipeOrbitais.academicoComSpringBoot.repository.PessoaRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RestController //permite definir um controller com características REST. Defini que essa classe AlunoController é a que vai receber as requisições http
+@Controller
+//@RestController //permite definir um controller com características REST. Defini que essa classe AlunoController é a que vai receber as requisições http
 @RequestMapping(value="/api") // permite definir uma rota. Caso não seja informado o método HTTP da rota, ela será definida para todos os métodos.
 @CrossOrigin(origins = "*")
 @Api(value="Academico com Spring Boot")

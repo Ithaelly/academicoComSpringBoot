@@ -1,0 +1,73 @@
+*{
+    margin:0; /*Define a espessura da margem nas 4 direções do elemento*/
+    border:0; /*Define a espessura da borda nas 4 direções do elemento*/
+    padding:0; /*Define a espessura do padding nas 4 direções do elemento*/
+}
+
+/*CABEÇALHO DA PAGINA*/
+header{
+    background-color: #4682B4; /*Definindo a cor de fundo do conteúdo quanto a de padding*/
+    height: 8%;; /*altura é 8% da página*/
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 2.5%; /*além da altura ele tem 2,5% acima de padding*/
+    padding-bottom: 1%; /*além da altura ele tem 1% abaixo de padding, para deixar o texto centralizado na vertical*/
+}
+
+article h2 {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.mudarPagina{ /*usa .mudarPagina pq é uma classe e serve para todos q estão na mesma classe*/
+    margin: 3%;
+    margin-left: 8%;
+}
+.mudarPagina img{
+    width: 2%;/*define o tamanho da imagem para 3% do tamanho da pagina*/
+    float: left;
+}
+.mudarPagina #linkCadastrar{ /*usa o # pq é pelo id*/
+   margin-left: 3%;
+   text-decoration: none; /*tira o sublinhado de baixo*/
+   color: black;
+   font-size: larger;
+}
+
+/*CAMPOS DE PREENCHER OS DADOS*/
+p{
+    margin: 1.5%;
+    margin-left: 12%;
+    font-size: larger;
+}
+p input{
+    background-color: #FFF;
+    border: 2px solid #CCC; /*define largura da borda, solid pq a borda é continua, e depois a cor*/
+    box-shadow: inset 0 0 2px gray;/*faz uma sombra cinza de 2 px na borda*/
+    padding: 4px; /*aumentei o tamanho da caixinha*/
+    margin-left: 30px;/*mudar a margem de todos, mas vou sobrescresver embaixo o da matricula e nome*/
+}
+#txtMatricula{
+    margin-left: 90px;
+}
+#txtNome{
+    margin-left: 120px;
+}
+
+/*BOTOES*/
+.botoes{
+    margin: 2%; 
+    border: 1.2px solid #CCC; /*solid pq a borda é continua, sem ser tracejada*/  
+    color: white;/*cor do texto branco*/
+    border-radius: 5px;
+}
+#btConfirmar{
+    margin-left: 18%;
+    background-color: #228B22;/*cor de fundo verde*/
+    padding: 0.6% 1.5%; /*vertical e horizontal*/
+}
+#btCancelar{
+    margin-left: 5%;
+    background-color: #FF0000;/*vermelho*/
+    padding: 0.6% 1.7%; /*vertical e horizontal, ta maior pq quero q fique bt do mesmo tamanho na largura do btConfirmar*/
+}

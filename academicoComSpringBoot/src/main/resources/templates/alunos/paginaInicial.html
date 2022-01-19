@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Universidade Equipe Orbitais</title>
+        <meta charset="UTF-8">
+        <meta name ="author"
+              content="Ithaelly Medeiros">
+        <meta name ="keywords"
+              content="Equipe,Orbitais,Aluno, Academico">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/normatize.css}" rel="stylesheet"> <!-- antigo era: href="../css/normatize.css" -->
+        <link th:href="@{/css/paginaInicial.css}" rel="stylesheet">
+    </head>
+    <body>
+        <header>Universidade Equipe Orbitais</header>
+        <article>
+            <h2>Lista de Alunos:</h2>
+            <nav class='mudarPagina'>
+                <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
+                <a th:href="@{telaCadastro}"> 		<!-- aqui no @{} coloca o caminho do @GetMapping -->
+                    <img src="../imagens/cadastrar.png" alt="imagem de cadastrar">
+                </a>
+                <a th:href="@{telaCadastro}" id="linkCadastrar">Cadastrar Novo Aluno</a>
+            </nav>
+            <p class="txtSubTitulo" id="txtSubTituloMatricula">Matrícula</p>
+            <p class="txtSubTitulo" id="txtSubTituloNome">Nome</p>
+            <p class="txtSubTitulo" id="txtSubTituloAno">Ano de Ingresso</p>
+            <p class="txtSubTitulo" id="txtSubTituloAcoes">Ações</p>
+            <br/>
+            <table>
+                <!--tr linhas -->
+                <tr  th:each="aluno : ${listaAlunos}"> <!-- esse each é como se fosse um for ou for:each -->
+                    <!--os 4 td são colunas -->        
+                    <td th:text="${aluno.matricula}" class='coluna' id='txtMatricula'></td>
+                    <td th:text="${aluno.nomePessoa}" class='coluna' id='txtNome'></td>
+                    <td th:text="${aluno.anoEntrada}" class='coluna' id='txtAno'></td>
+                    <td class='coluna' id="txtAcoes">
+                        <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
+                        <!-- MUDAR OS COMANDOS DEBAIXOS PARA ELE IR P/ FUNÇÕES DE ALTERAR E DELETAR DO GETMAPPIN EM ALUNO CONTROLE E DEPOIS MUDE DE TELA -->
+                        <!-- <a th:href="@{telaCadastro}">
+                            <img id="imgEditar" src="../imagens/editar.png" alt="imagem de editar">
+                        </a>
+                        <a th:href="paginaInicial.html">
+                            <img id="imgDeletar" src="../imagens/deletar.png" alt="imagem de deletar">
+                        </a> -->
+                    </td>
+                </tr>
+            </table>       
+        </article>
+    </body>
+</html>

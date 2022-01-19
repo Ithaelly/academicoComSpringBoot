@@ -1,0 +1,89 @@
+*{
+    margin:0; /*Define a espessura da margem nas 4 direções do elemento*/
+    border:0; /*Define a espessura da borda nas 4 direções do elemento*/
+    padding:0; /*Define a espessura do padding nas 4 direções do elemento*/
+}
+header{
+    background-color: #4682B4; /*Definindo a cor de fundo do conteúdo quanto a de padding*/
+    height: 8%;; /*altura é 8% da página*/
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 2.5%; /*além da altura ele tem 2,5% acima de padding*/
+    padding-bottom: 1%; /*além da altura ele tem 1% abaixo de padding, para deixar o texto centralizado na vertical*/
+}
+
+article h2 {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.mudarPagina{ /*usa .mudarPagina pq é uma classe e serve para todos q estão na mesma classe*/
+    margin: 3%;
+    margin-left: 8%;
+}
+
+.mudarPagina img{
+    width: 2%;/*define o tamanho da imagem para 2% do tamanho da pagina*/
+    float: left;
+}
+
+.mudarPagina #linkCadastrar{ /*usa o # pq é pelo id*/
+   margin-left: 3%;
+   text-decoration: none; /*tira o sublinhado de baixo*/
+   color: black;
+   font-size: larger;
+}
+
+/*SUBTITULOS*/
+.txtSubTitulo{
+   margin-bottom: 2%;
+   color: black;
+   font-size: larger;
+   float: left;
+}
+#txtSubTituloMatricula{
+   margin-left: 8%;
+   width: 240px;
+}
+#txtSubTituloNome{
+   width: 240px;
+}
+#txtSubTituloAno{
+   width: 240px;
+}
+#txtSubTituloAcoes{
+   width: 80px;
+}
+
+/*TABELA*/
+table {
+    margin-left: 8%;
+    width: 60%;
+}
+td {
+    /*border: 1px dotted #666; /*para fazer um pontilhado contornando as bordas da tabela*/
+    padding: 7px 0px;
+}
+.coluna {
+    text-align: left; /*alinhando os textos de cada coluna a esquerda*/
+}
+#txtMatricula{
+   width: 190px;
+}
+#txtNome{
+   width: 190px;
+}
+#txtAno{
+   width: 190px;
+}
+#txtAcoes{
+   width: 80px;
+}
+#imgEditar{
+    width: 30%;/*define o tamanho da imagem*/
+    margin-right: 5px;
+}
+#imgDeletar{
+    width: 25%;/*define o tamanho da imagem*/
+}
