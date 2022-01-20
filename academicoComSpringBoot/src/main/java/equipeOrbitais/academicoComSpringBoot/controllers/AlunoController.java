@@ -32,21 +32,33 @@ public class AlunoController {
 	@Autowired //delega ao Spring Boot a inicialização do objeto;
 	AlunoRepository alunoRepository;
 	
-	// Retorna a página inicial com a lista dos alunos
+	//Método que faz abrir a página inicial com a lista dos alunos
     @GetMapping(value = "/telaInicial") 	//caminho p/ testar na URL
     public String telaInicial(Model model){
         model.addAttribute("listaAlunos", listaAlunos());
         return "redirect:/alunos/paginaInicial";		//caminho das pastar p/ o arquivo html da página que quero
     }	
     
-	// Método que faz mudar de página html para a paginaAlunos.html
+	// Método que faz mudar da páginaInicial.html para a paginaAlunos.html
     @GetMapping(value = "/telaCadastro")
     public String cadastro(@ModelAttribute("aluno") AlunoDTO aluno){
         return "redirect:/alunos/paginaAlunos";  //caminho a partir da pasta: templates
     }
-	
+    // Método do botão de remover aluno na paginaInicial
+    @GetMapping(value = "/remover/{matricula}")
+    public String excluir(@PathVariable(value = "matricula") String matricula) {
+		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
+        if(aluno.isPresent()){
+           alunoRepository.delete(aluno.get());
+           return "redirect:/alunos/paginaInicial";	
+        }
+        else {
+        	throw new IllegalArgumentException("Pessoa inválida.");	
+        }
+    }
+    
     // Retorna os dados de alunos do bd
-    public List<AlunoDTO> getAlunos() {
+    /*public List<AlunoDTO> getAlunos() {
         List<Aluno> listaAluno = alunoRepository.findAll();
         List<AlunoDTO> listaAlunoDTO = new ArrayList<>();
 
@@ -54,7 +66,10 @@ public class AlunoController {
             listaAlunoDTO.add(new AlunoDTO(a));
         }
         return listaAlunoDTO;
-    }
+    }*/
+    
+
+    
     
     @ApiOperation(value="Retorna uma lista de alunos cadastrados")
 	@GetMapping("/alunos")

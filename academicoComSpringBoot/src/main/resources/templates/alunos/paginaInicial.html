@@ -40,8 +40,7 @@
                         <a th:href="@{/telaCadastro}">
                             <img id="imgEditar" src="../imagens/editar.png" alt="imagem de editar">
                         </a>
-                        <!-- PRECISA MUDAR AQUI PARA CHEGAR O COMANDO DE DELETAR E NÃO DE LISTAR NA TELAINICIAL -->
-                        <a th:href="@{/telaInicial}">
+                        <a th:href="@{/remover/{matricula}(matricula=${aluno.matricula})}"> <!-- a variavel matricula vai receber a aluno.matricula e vai mandar para fazer a consulta de excluir na função: "excluir" em "alunoController" -->
                             <img id="imgDeletar" src="../imagens/deletar.png" alt="imagem de deletar">
                         </a>
                     </td>

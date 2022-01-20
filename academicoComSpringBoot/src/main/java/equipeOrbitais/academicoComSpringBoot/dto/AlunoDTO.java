@@ -36,15 +36,4 @@ public class AlunoDTO {
 			 * collect: vai ta coletando todos esses dados de cima e vai passar ela pela Collectors.toList()
 			 * Collectors.toList: vai fazer uma lista com esses dados coletados */
 		}
-		
-		 // Retorna os dados de alunos do bd
-	    public List<AlunoDTO> getAlunos() {
-	        List<Aluno> listaAluno = alunoRepository.findAll();
-	        List<AlunoDTO> listaAlunoDTO = new ArrayList<>();
-
-	        for (Aluno a : listaAluno) {
-	            listaAlunoDTO.add(new AlunoDTO(a));
-	        }
-	        return listaAlunoDTO;
-	    }
 }
