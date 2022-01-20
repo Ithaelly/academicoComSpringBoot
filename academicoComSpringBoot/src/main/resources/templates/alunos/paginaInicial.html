@@ -18,10 +18,10 @@
             <h2>Lista de Alunos:</h2>
             <nav class='mudarPagina'>
                 <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
-                <a th:href="@{telaCadastro}"> 		<!-- aqui no @{} coloca o caminho do @GetMapping -->
+                <a th:href="@{/telaCadastro}"> 		<!-- aqui no @{} coloca o caminho do @GetMapping -->
                     <img src="../imagens/cadastrar.png" alt="imagem de cadastrar">
                 </a>
-                <a th:href="@{telaCadastro}" id="linkCadastrar">Cadastrar Novo Aluno</a>
+                <a th:href="@{/telaCadastro}" id="linkCadastrar">Cadastrar Novo Aluno</a>
             </nav>
             <p class="txtSubTitulo" id="txtSubTituloMatricula">Matrícula</p>
             <p class="txtSubTitulo" id="txtSubTituloNome">Nome</p>
@@ -30,20 +30,20 @@
             <br/>
             <table>
                 <!--tr linhas -->
-                <tr  th:each="aluno : ${listaAlunos}"> <!-- esse each é como se fosse um for ou for:each -->
+                <tr  th:each="aluno : ${listaAlunos}"> <!-- esse each é como se fosse um for ou for:each. E o "listaAlunos" vem no nome usado na função: "telaInicial", da classe: "AlunoController". A cada iteração a variavel aluno vai receber um aluno da lista-->
                     <!--os 4 td são colunas -->        
                     <td th:text="${aluno.matricula}" class='coluna' id='txtMatricula'></td>
                     <td th:text="${aluno.nomePessoa}" class='coluna' id='txtNome'></td>
                     <td th:text="${aluno.anoEntrada}" class='coluna' id='txtAno'></td>
                     <td class='coluna' id="txtAcoes">
                         <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
-                        <!-- MUDAR OS COMANDOS DEBAIXOS PARA ELE IR P/ FUNÇÕES DE ALTERAR E DELETAR DO GETMAPPIN EM ALUNO CONTROLE E DEPOIS MUDE DE TELA -->
-                        <!-- <a th:href="@{telaCadastro}">
+                        <a th:href="@{/telaCadastro}">
                             <img id="imgEditar" src="../imagens/editar.png" alt="imagem de editar">
                         </a>
-                        <a th:href="paginaInicial.html">
+                        <!-- PRECISA MUDAR AQUI PARA CHEGAR O COMANDO DE DELETAR E NÃO DE LISTAR NA TELAINICIAL -->
+                        <a th:href="@{/telaInicial}">
                             <img id="imgDeletar" src="../imagens/deletar.png" alt="imagem de deletar">
-                        </a> -->
+                        </a>
                     </td>
                 </tr>
             </table>       
