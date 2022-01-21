@@ -35,13 +35,13 @@ public class AlunoController {
     @GetMapping(value = "/telaInicial") 	//caminho p/ testar na URL
     public String telaInicial(Model model){
         model.addAttribute("listaAlunos", listaAlunos());
-        return "redirect:/alunos/paginaInicial";		//caminho das pastar p/ o arquivo html da página que quero
+        return "alunos/paginaInicial";		//caminho das pastar p/ o arquivo html da página que quero
     }	
     
 	// Método que faz mudar da páginaInicial.html para a paginaAlunos.html
     @GetMapping(value = "/telaCadastro")
-    public String cadastro(@ModelAttribute("aluno") AlunoDTO aluno){
-        return "redirect:/alunos/paginaAlunos";  //caminho a partir da pasta: templates
+    public String telaCadastro(@ModelAttribute("aluno") AlunoDTO aluno){
+        return "alunos/paginaAlunos";  //caminho a partir da pasta: templates
     }
     // Método do botão de remover aluno na paginaInicial
     @GetMapping(value = "/remover/{matricula}")
