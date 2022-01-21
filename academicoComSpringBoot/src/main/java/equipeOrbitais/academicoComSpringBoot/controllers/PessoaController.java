@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 //@RestController //permite definir um controller com características REST. Defini que essa classe AlunoController é a que vai receber as requisições http
 @RequestMapping(value="/api") // permite definir uma rota. Caso não seja informado o método HTTP da rota, ela será definida para todos os métodos.
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:8080")//@CrossOrigin(origins = "*")
 @Api(value="Academico com Spring Boot")
 
 public class PessoaController {
