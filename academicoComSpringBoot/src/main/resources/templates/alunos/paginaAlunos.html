@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Mudou Bem vindo a p�gina alunos</title>
-</head>
-<body>
-
-</body>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang='pt-BR'>
+    <head>
+        <title>Universidade Equipe Orbitais</title>
+        <meta charset="UTF-8">
+        <meta name ="author"
+              content="Ithaelly Medeiros">
+        <meta name ="keywords"
+              content="Equipe,Orbitais,Aluno">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../css/normatize.css" rel="stylesheet">
+        <link href="../css/paginaAlunos.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>Universidade Equipe Orbitais</header>
+        <article>
+            <h2>Formulário para Cadastro de Novo Aluno</h2>
+            <nav class='mudarPagina'>
+                <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
+                <a th:href="@{/telaInicial}"> 		<!-- aqui no @{} coloca o caminho do @GetMapping -->
+                    <img src="../imagens/principal.png" alt="imagem de home">
+                </a>
+                <a th:href="@{/telaInicial}"  id="linkCadastrar" >Página Inicial</a>
+            </nav>
+            
+            <!-- se a matricula tiver vazia ele abre o metodo de salvar -->
+            <form action="#" th:if="${#strings.isEmpty(aluno.matricula)}" th:action="@{/salvar}" th:object="${aluno}" method="post">
+                <p>
+                    <label for="txtMatricula">Matrícula:</label>
+                    <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
+                </p>
+                <p>
+                    <label for="txtNome">Nome:</label>
+                    <input type="text" th:field="*{nomePessoa}" th:required="required" placeholder="Nome" size="35" id="txtNome">
+                </p>           
+                <p>
+                    <label for="txtAno">Ano de Ingresso:</label>
+                    <input type="text" th:field="*{anoEntrada}" th:required="required" placeholder="Ano de ingresso" size="3" id="txtAno">
+                </p>
+                <input class='botoes' type="submit" value="Confirmar" id="btConfirmar">
+                <input class='botoes' type="submit" value="Cancelar" id="btCancelar">
+            </form>
+        </article>
+    </body>
 </html>
