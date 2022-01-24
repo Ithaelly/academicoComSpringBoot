@@ -37,15 +37,14 @@
             <tr  th:each="aluno : ${listaAlunos}"> <!-- esse each é como se fosse um for ou for:each. E o "listaAlunos" vem no nome usado na função: "telaInicial", da classe: "AlunoController". A cada iteração a variavel aluno vai receber um aluno da lista-->
         		 <!--os 4 td são colunas -->        
                  <td th:text="${aluno.matricula}" class='coluna' id='txtMatricula'></td>
-                 <!--  <td th:text="${aluno.nomePessoa}" class='coluna' id='txtNome'></td>-->
-                 <td th:text="${aluno.anoEntrada}" class='coluna' id='txtNome'></td>
+                 <td th:text="${aluno.pessoaDTO.nome}" class='coluna' id='txtNome'></td>
                  <td th:text="${aluno.anoEntrada}" class='coluna' id='txtAno'></td>
                  <td class='coluna' id="txtAcoes">
                       <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
                       <a th:href="@{telaCadastro}">
                           <img id="imgEditar" src="../imagens/editar.png" alt="imagem de editar">
                       </a>
-                      <a th:href="@{/remover/{matricula}(matricula=${aluno.matricula})}"> <!-- a variavel matricula vai receber a aluno.matricula e vai mandar para fazer a consulta de excluir na função: "excluir" em "alunoController" -->
+                      <a th:href="@{remover/{matricula}(matricula=${aluno.matricula})}"> <!-- a variavel matricula vai receber a aluno.matricula e vai mandar para fazer a consulta de excluir na função: "excluir" em "alunoController" -->
                           <img id="imgDeletar" src="../imagens/deletar.png" alt="imagem de deletar">
                       </a>
                  </td>

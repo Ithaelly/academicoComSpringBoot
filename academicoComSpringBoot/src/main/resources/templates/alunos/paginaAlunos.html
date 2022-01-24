@@ -24,21 +24,17 @@
              <a th:href="@{telaInicial}"  id="linkCadastrar" >Página Inicial</a>
          </nav>
          
-         <!-- se a matricula tiver vazia ele abre o metodo de salvar -->
-         <form action="#" th:if="${#strings.isEmpty(aluno.matricula)}" th:action="@{/salvar}" th:object="${aluno}" method="post">
+         <!-- se a matricula tiver vazia/ n tiver cadastro, aí sim, ele abre o metodo de salvar -->
+          <form action="#" th:if="${#strings.isEmpty(aluno.matricula)}" th:action="@{adicionar}" th:object="${aluno}" method="post">
          	<p>
                  <label for="txtMatricula">Matrícula:</label>
                  <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
              </p>
-             <!--  <p>
-                  <label for="txtNome">Nome:</label>
-                  <input type="text" th:field="*{nomePessoa}" th:required="required" placeholder="Nome" size="35" id="txtNome">
-              </p>-->
              <p>
-                 <label for="txtAno">Nome:</label>
-                 <input type="text" th:field="*{matricula}" th:required="required" placeholder="Nome" size="35" id="txtNome">
-             </p>
-             <p>
+                  <label for="txtNome">CPF:</label>
+                  <input type="text" th:field="*{pessoaDTO.cpf}" th:required="required" placeholder="Cpf" size="35" id="txtNome">
+              </p>
+              <p>
                  <label for="txtAno">Ano de Ingresso:</label>
                  <input type="text" th:field="*{anoEntrada}" th:required="required" placeholder="Ano" size="3" id="txtAno">
              </p>
