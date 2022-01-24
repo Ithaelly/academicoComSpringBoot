@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import equipeOrbitais.academicoComSpringBoot.dto.AlunoDTO;
+import equipeOrbitais.academicoComSpringBoot.dto.PessoaDTO;
 import equipeOrbitais.academicoComSpringBoot.models.Aluno;
 import equipeOrbitais.academicoComSpringBoot.models.Pessoa;
 import equipeOrbitais.academicoComSpringBoot.repository.AlunoRepository;
+import equipeOrbitais.academicoComSpringBoot.repository.PessoaRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.ui.Model;;
@@ -27,9 +29,11 @@ public class AlunoController {
 	/*Model permite adicionar atributos que o Thymeleaf pode usar para renderizar os dados.*/
 	Pessoa pessoa = new Pessoa();
 	AlunoDTO alunoDTO = new AlunoDTO();
+	PessoaDTO pessoaDTO = new PessoaDTO();
 	
 	@Autowired //delega ao Spring Boot a inicialização do objeto;
 	AlunoRepository alunoRepository;
+	PessoaRepository pessoaRepository;
 	
 	//Método que faz abrir a página inicial com a lista dos alunos
     @GetMapping(value = "/telaInicial") 	//caminho p/ testar na URL
@@ -49,23 +53,28 @@ public class AlunoController {
 		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
         if(aluno.isPresent()){
            alunoRepository.delete(aluno.get());
-           return "redirect:/alunos/paginaInicial";	
+           return "alunos/paginaInicial";	
         }
         else {
         	throw new IllegalArgumentException("Pessoa inválida.");	
         }
     }
-    
-    // Retorna os dados de alunos do bd
-    /*public List<AlunoDTO> getAlunos() {
-        List<Aluno> listaAluno = alunoRepository.findAll();
-        List<AlunoDTO> listaAlunoDTO = new ArrayList<>();
-
-        for (Aluno a : listaAluno) {
-            listaAlunoDTO.add(new AlunoDTO(a));
+        	
+    // Método do botão confirmar cadastro
+    @PostMapping(value = "/adicionar")
+    public String salvar(@ModelAttribute("aluno") Aluno aluno){
+        Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(pessoaDTO.getCpf());// ta vindo vazio
+        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
+        
+        if(pessoa.isPresent()){
+        	if((alunoRepository.findByMatricula(aluno.getMatricula()) == null) || (oldAluno.isEmpty())) {
+        		aluno.setPessoa(pessoa.get());
+        		alunoRepository.save(aluno);
+	        	return "alunos/paginaInicial";		     
+        	}
         }
-        return listaAlunoDTO;
-    }*/
+    	 throw new IllegalArgumentException("Pessoa não existe ou matrícula já está cadastrada! Tente novamente!");   	
+    }
     
 
     
