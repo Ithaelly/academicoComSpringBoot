@@ -25,6 +25,17 @@ public class PessoaController {
 	@Autowired //delega ao Spring Boot a inicialização do objeto;
 	PessoaRepository pessoaRepository;
 	
+	// Método que serve para retornar uma pessoa pelo cpf
+    @GetMapping(path = {"/{cpf}"})
+    public ResponseEntity<Object> getPorCpf(@PathVariable(value = "cpf") String cpf){
+		Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(cpf);
+        if(pessoa.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok().body(pessoa.get());
+        }
+    }
+	
 	@ApiOperation(value="Retorna uma lista de pessoas cadastradas")
 	@GetMapping("/pessoas")
 	public List<PessoaDTO> listaPessoas(){
