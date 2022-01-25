@@ -1,5 +1,7 @@
 package equipeOrbitais.academicoComSpringBoot.models;
 
+import java.util.Optional;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;

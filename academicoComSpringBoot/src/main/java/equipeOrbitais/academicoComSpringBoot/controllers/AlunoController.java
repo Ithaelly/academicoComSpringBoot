@@ -68,11 +68,11 @@ public class AlunoController {
         
         if(pessoa.isPresent()){
         	if((alunoRepository.findByMatricula(aluno.getMatricula()) == null) || (oldAluno.isEmpty())) {
-        		aluno.setPessoa(pessoa.get());
+        		aluno.setPessoa(aluno.getPessoa());
         		alunoRepository.save(aluno);
 	        	return "alunos/paginaInicial";		     
         	}
-        }
+       }
     	 throw new IllegalArgumentException("Pessoa não existe ou matrícula já está cadastrada! Tente novamente!");   	
     }
     
