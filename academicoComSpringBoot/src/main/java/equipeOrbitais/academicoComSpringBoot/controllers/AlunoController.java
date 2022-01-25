@@ -44,15 +44,16 @@ public class AlunoController {
     
 	// Método que faz mudar da páginaInicial.html para a paginaAlunos.html
     @GetMapping(value = "/telaCadastro")
-    public String telaCadastro(@ModelAttribute("aluno") AlunoDTO aluno){
+    public String telaCadastro(@ModelAttribute("aluno") Aluno aluno){
         return "alunos/paginaAlunos";  //caminho a partir da pasta: templates
     }
     // Método do botão de remover aluno na paginaInicial
     @GetMapping(value = "/remover/{matricula}")
-    public String excluir(@PathVariable(value = "matricula") String matricula) {
+    public String excluir(@PathVariable(value = "matricula") String matricula, Model model) {
 		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
         if(aluno.isPresent()){
            alunoRepository.delete(aluno.get());
+           model.addAttribute("listaAlunos", listaAlunos()); 
            return "alunos/paginaInicial";	
         }
         else {
