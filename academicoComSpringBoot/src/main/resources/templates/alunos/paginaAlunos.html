@@ -41,6 +41,24 @@
              <input class='botoes' type="submit" value="Confirmar" id="btConfirmar">
              <input class='botoes' type="submit" value="Cancelar" id="btCancelar">
          </form>
+         
+         <!-- unless=senão, no caso a matricula tiver preenchida, ele abre o metodo de alterar -->
+         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{atualizar}" th:object="${aluno}" method="get">
+	            <p>
+	                 <label for="txtMatricula">Matrícula:</label>
+	                 <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
+	             </p>
+	             <p>
+	                  <label for="txtNome">CPF:</label>
+	                  <input type="text" th:field="*{pessoa.cpf}" th:required="required" placeholder="Cpf" size="35" id="txtNome">
+	              </p>
+	              <p>
+	                 <label for="txtAno">Ano de Ingresso:</label>
+	                 <input type="text" th:field="*{anoEntrada}" th:required="required" placeholder="Ano" size="3" id="txtAno">
+	             </p>
+	             <input class='botoes' type="submit" value="Confirmar" id="btConfirmar">
+	             <input class='botoes' type="submit" value="Cancelar" id="btCancelar">
+        </form>
     </article>
             
 </body>

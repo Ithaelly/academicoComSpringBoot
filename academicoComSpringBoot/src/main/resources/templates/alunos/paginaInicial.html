@@ -41,7 +41,7 @@
                  <td th:text="${aluno.anoEntrada}" class='coluna' id='txtAno'></td>
                  <td class='coluna' id="txtAcoes">
                       <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
-                      <a th:href="@{telaCadastro}">
+                      <a th:href="@{alterar/{matricula}(matricula=${aluno.matricula})}">
                           <img id="imgEditar" src="../imagens/editar.png" alt="imagem de editar">
                       </a>
                       <a th:href="@{remover/{matricula}(matricula=${aluno.matricula})}"> <!-- a variavel matricula vai receber a aluno.matricula e vai mandar para fazer a consulta de excluir na função: "excluir" em "alunoController" -->
