@@ -80,32 +80,33 @@ public class AlunoController {
     
     // Método do botao de alterar
     @GetMapping(value = "/alterar/{matricula}")
-    public String alterar(@PathVariable(value = "matricula") String matricula, Model model){
+    public String alterar(@PathVariable String matricula, Model model){
         Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
-            if(aluno.isPresent()){
-                model.addAttribute("aluno", aluno.get());
-                return "alunos/paginaAlunos";
-            }
-            throw new IllegalArgumentException("Aluno inválido!");
+        if (aluno.isPresent()) {
+        	model.addAttribute("aluno", aluno.get());
+        	return "alunos/paginaAlunos";
+        }
+        else {
+        	throw new IllegalArgumentException("Pessoa inválida.");
+		}
     }
-    
-    // Método de quando clica no botao confirmar a alteração
-    @GetMapping(value = "/atualizar")
-    public String atualizar(@ModelAttribute("aluno") Aluno newAluno){
-        Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(newAluno.getPessoa().getCpf());
-        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(newAluno.getMatricula());
 
-        if(oldAluno.isPresent()){
-            if(oldPessoa != null){
-            	Aluno aluno = oldAluno.get();
+    // Método de quando clica no botao confirmar a alteração
+    @PostMapping(value = "/atualizar")
+    public String atualizar(@ModelAttribute("aluno") Aluno aluno){
+        Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(aluno.getPessoa().getCpf());
+        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
+
+        if(oldPessoa.isPresent()){
+        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null) || (oldAluno.isPresent())) {
             	aluno.setPessoa(oldPessoa.get());
-            	aluno.setMatricula(newAluno.getMatricula());
-            	aluno.setAnoEntrada(newAluno.getAnoEntrada());
+            	aluno.setMatricula(aluno.getMatricula());
+            	aluno.setAnoEntrada(aluno.getAnoEntrada());
                 alunoRepository.save(aluno);
                 return "alunos/paginaInicial";		
             }
         }
-        throw new IllegalArgumentException("Erro ao alterar aluno. Pessoa inexistente ou matrícula já em uso!");
+        throw new IllegalArgumentException("Erro ao alterar aluno.");
     }
 
     
