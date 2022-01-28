@@ -33,6 +33,7 @@ public class AlunoController {
 	
 	@Autowired //delega ao Spring Boot a inicialização do objeto;
 	AlunoRepository alunoRepository;
+	@Autowired
 	PessoaRepository pessoaRepository;
 	
 	//Método que faz abrir a página inicial com a lista dos alunos
@@ -64,12 +65,12 @@ public class AlunoController {
     // Método do botão confirmar cadastro
     @PostMapping(value = "/adicionar")
     public String salvar(@ModelAttribute("aluno") Aluno aluno){
-        Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(aluno.getPessoa().getCpf()); 	// ta vindo nullo
+        Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(aluno.getPessoa().getCpf()); 
         Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
         
         if(pessoa.isPresent()){
         	if((alunoRepository.findByMatricula(aluno.getMatricula()) == null) || (oldAluno.isEmpty())) {
-        		aluno.setPessoa(aluno.getPessoa());
+        		aluno.setPessoa(pessoa.get());
         		alunoRepository.save(aluno);
 	        	return "alunos/paginaInicial";		     
         	}
@@ -81,11 +82,11 @@ public class AlunoController {
     @GetMapping(value = "/alterar/{matricula}")
     public String alterar(@PathVariable(value = "matricula") String matricula, Model model){
         Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
-        if(!aluno.isPresent()){
-        	throw new IllegalArgumentException("Aluno inválido!");
-        }
-        	model.addAttribute("aluno", aluno.get());
-            return "alunos/paginaAlunos";
+            if(aluno.isPresent()){
+                model.addAttribute("aluno", aluno.get());
+                return "alunos/paginaAlunos";
+            }
+            throw new IllegalArgumentException("Aluno inválido!");
     }
     
     // Método de quando clica no botao confirmar a alteração
@@ -97,7 +98,7 @@ public class AlunoController {
         if(oldAluno.isPresent()){
             if(oldPessoa != null){
             	Aluno aluno = oldAluno.get();
-            	aluno.setPessoa(newAluno.getPessoa());
+            	aluno.setPessoa(oldPessoa.get());
             	aluno.setMatricula(newAluno.getMatricula());
             	aluno.setAnoEntrada(newAluno.getAnoEntrada());
                 alunoRepository.save(aluno);
