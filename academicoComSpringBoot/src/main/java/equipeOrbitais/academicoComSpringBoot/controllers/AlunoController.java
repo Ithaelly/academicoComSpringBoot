@@ -58,7 +58,7 @@ public class AlunoController {
            return "alunos/paginaInicial";	
         }
         else {
-        	throw new IllegalArgumentException("Pessoa inválida.");	
+        	throw new IllegalArgumentException("Pessoa inválida para excluir.");	
         }
     }
         	
@@ -82,13 +82,11 @@ public class AlunoController {
     @GetMapping(value = "/alterar/{matricula}")
     public String alterar(@PathVariable String matricula, Model model){
         Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
-        if (aluno.isPresent()) {
-        	model.addAttribute("aluno", aluno.get());
-        	return "alunos/paginaAlunos";
+        if (!aluno.isPresent()) {
+        	throw new IllegalArgumentException("Pessoa inválida para alterar.");     	
         }
-        else {
-        	throw new IllegalArgumentException("Pessoa inválida.");
-		}
+        model.addAttribute("aluno", aluno.get());
+    	return "alunos/paginaAlunos";
     }
 
     // Método de quando clica no botao confirmar a alteração

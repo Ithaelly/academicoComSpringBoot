@@ -9,8 +9,8 @@
               content="Equipe,Orbitais,Aluno">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../css/normatize.css" rel="stylesheet">
-        <link href="../css/paginaAlunos.css" rel="stylesheet">
+        <link th:href="@{/css/normatize.css}" rel="stylesheet"> <!-- antigo era: href="../css/normatize.css" -->
+        <link th:href="@{/css/paginaAlunos.css}" rel="stylesheet">
     </head>
 <body>
 	<header>Universidade Equipe Orbitais</header>
@@ -19,7 +19,7 @@
         <nav class='mudarPagina'>
              <!-- o img está dentro do a, para que quando clicar na imagem vá para outra página -->
              <a th:href="@{telaInicial}"> 		<!-- aqui no @{} coloca o caminho do @GetMapping -->
-                 <img src="../imagens/principal.png" alt="imagem de home">
+                 <img src="/imagens/principal.png" alt="imagem de home">
              </a>
              <a th:href="@{telaInicial}"  id="linkCadastrar" >Página Inicial</a>
          </nav>
@@ -42,8 +42,8 @@
              <input class='botoes' type="submit" value="Cancelar" id="btCancelar">
          </form>
          
-         <!-- unless=senão, no caso a matricula tiver preenchida, ele abre o metodo de alterar -->
-         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{atualizar}" th:object="${aluno}" method="post">
+         <!-- unless="senão", no caso a matricula tiver preenchida, ele abre o metodo de alterar -->
+         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{atualizar}" th:object="${aluno}" >
 	            <p>
 	                 <label for="txtMatricula">Matrícula:</label>
 	                 <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
