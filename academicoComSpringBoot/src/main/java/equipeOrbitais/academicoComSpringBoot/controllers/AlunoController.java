@@ -97,10 +97,11 @@ public class AlunoController {
 
         if(oldPessoa.isPresent()){
         	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null) || (oldAluno.isPresent())) {
-            	aluno.setPessoa(oldPessoa.get());
-            	aluno.setMatricula(aluno.getMatricula());
-            	aluno.setAnoEntrada(aluno.getAnoEntrada());
-                alunoRepository.save(aluno);
+        		Aluno updated  =  oldAluno.get();
+            	updated.setMatricula(aluno.getMatricula());
+            	updated.setAnoEntrada(aluno.getAnoEntrada());
+            	updated.getPessoa().setCpf(aluno.getPessoa().getCpf());
+                alunoRepository.save(updated);
                 return "alunos/paginaInicial";		
             }
         }

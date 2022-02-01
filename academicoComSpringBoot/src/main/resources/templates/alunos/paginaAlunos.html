@@ -43,7 +43,7 @@
          </form>
          
          <!-- unless="senão", no caso a matricula tiver preenchida, ele abre o metodo de alterar -->
-         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{/api/atualizar}" th:object="${aluno}" >
+         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{/api/atualizar}" th:object="${aluno}" method="post">
 	            <p>
 	                 <label for="txtMatricula">Matrícula:</label>
 	                 <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
