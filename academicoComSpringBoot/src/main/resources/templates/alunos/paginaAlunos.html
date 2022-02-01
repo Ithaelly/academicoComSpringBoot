@@ -25,7 +25,7 @@
          </nav>
          
          <!-- se a matricula tiver vazia/ n tiver cadastro, aí sim, ele abre o metodo de salvar -->
-          <form action="#" th:if="${#strings.isEmpty(aluno.matricula)}" th:action="@{adicionar}" th:object="${aluno}" method="post">
+          <form action="#" th:if="${#strings.isEmpty(aluno.matricula)}" th:action="@{/api/adicionar}" th:object="${aluno}" method="post">
          	<p>
                  <label for="txtMatricula">Matrícula:</label>
                  <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">
@@ -43,7 +43,7 @@
          </form>
          
          <!-- unless="senão", no caso a matricula tiver preenchida, ele abre o metodo de alterar -->
-         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{atualizar}" th:object="${aluno}" >
+         <form action="#" th:unless="${#strings.isEmpty(aluno.matricula)}" th:action="@{/api/atualizar}" th:object="${aluno}" >
 	            <p>
 	                 <label for="txtMatricula">Matrícula:</label>
 	                 <input type="text" th:field="*{matricula}" th:required="required" placeholder="Matricula" size="15" id="txtMatricula">

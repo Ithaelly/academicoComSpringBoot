@@ -91,7 +91,7 @@ public class AlunoController {
 
     // Método de quando clica no botao confirmar a alteração
     @PostMapping(value = "/atualizar")
-    public String atualizar(@ModelAttribute("aluno") Aluno aluno){
+    public String atualizar(Aluno aluno){
         Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(aluno.getPessoa().getCpf());
         Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
 
