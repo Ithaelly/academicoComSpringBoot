@@ -71,6 +71,7 @@ public class AlunoController {
         if(pessoa.isPresent()){
         	if((alunoRepository.findByMatricula(aluno.getMatricula()) == null) || (oldAluno.isEmpty())) {
         		aluno.setPessoa(pessoa.get());
+        		aluno.setId(aluno.getId());
         		alunoRepository.save(aluno);
 	        	return "alunos/paginaInicial";		     
         	}
@@ -94,10 +95,12 @@ public class AlunoController {
     public String atualizar(Aluno aluno){
         Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(aluno.getPessoa().getCpf());
         Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
-
+        
         if(oldPessoa.isPresent()){
         	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null) || (oldAluno.isPresent())) {
+        		oldAluno.get().setId(aluno.getId());
         		Aluno updated  =  oldAluno.get();
+        		updated.setId(aluno.getId());
             	updated.setMatricula(aluno.getMatricula());
             	updated.setAnoEntrada(aluno.getAnoEntrada());
             	updated.getPessoa().setCpf(aluno.getPessoa().getCpf());
