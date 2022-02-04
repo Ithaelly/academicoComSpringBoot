@@ -49,9 +49,9 @@ public class AlunoController {
         return "alunos/paginaAlunos";  //caminho a partir da pasta: templates
     }
     // Método do botão de remover aluno na paginaInicial
-    @GetMapping(value = "/remover/{matricula}")
-    public String excluir(@PathVariable(value = "matricula") String matricula, Model model) {
-		Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
+    @GetMapping(value = "/remover/{id}")
+    public String excluir(@PathVariable Long id, Model model) {
+		Optional<Aluno> aluno =  alunoRepository.findById((long) id);
         if(aluno.isPresent()){
            alunoRepository.delete(aluno.get());
            model.addAttribute("listaAlunos", listaAlunos()); 
@@ -61,28 +61,56 @@ public class AlunoController {
         	throw new IllegalArgumentException("Pessoa inválida para excluir.");	
         }
     }
-        	
-    // Método do botão confirmar cadastro
-    @PostMapping(value = "/adicionar")
+       
+ // Método do botão confirmar cadastro
+   @PostMapping(value = "/adicionar")
     public String salvar(@ModelAttribute("aluno") Aluno aluno){
         Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(aluno.getPessoa().getCpf()); 
-        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
         
         if(pessoa.isPresent()){
-        	if((alunoRepository.findByMatricula(aluno.getMatricula()) == null) || (oldAluno.isEmpty())) {
-        		aluno.setPessoa(pessoa.get());
-        		aluno.setId(aluno.getId());
+        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null)) {
+        		aluno.setPessoa(pessoa.get());   	
         		alunoRepository.save(aluno);
 	        	return "alunos/paginaInicial";		     
         	}
+	        	else {
+	           	 	throw new IllegalArgumentException("Matrícula já está cadastrada!");   	
+	        	}
+	       }
+	        else {
+	       	 	throw new IllegalArgumentException("Pessoa não está presente");   	
+	        }
+      }
+
+    
+    // Método do botão confirmar cadastro
+    /*@PostMapping(value = "/adicionar/{id}")
+    public String salvar(Long id, Aluno aluno){
+        Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(aluno.getPessoa().getCpf()); 
+        Optional<Aluno> novoAluno = alunoRepository.findById((long) id);
+        
+        if(pessoa.isPresent()){
+        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null)) { //se não existe essa matricula no bd
+        		novoAluno.get().setId(aluno.getId());
+        		novoAluno.get().getPessoa().setCpf(aluno.getPessoa().getCpf());
+         		novoAluno.get().setMatricula(aluno.getMatricula());
+         		novoAluno.get().setAnoEntrada(aluno.getAnoEntrada());
+         		alunoRepository.save(novoAluno.get());
+	        	return "alunos/paginaInicial";		     
+        	}	
+        	else {
+           	 	throw new IllegalArgumentException("Matrícula já está cadastrada!");   	
+        	}
        }
-    	 throw new IllegalArgumentException("Pessoa não existe ou matrícula já está cadastrada! Tente novamente!");   	
-    }
+        else {
+       	 	throw new IllegalArgumentException("Pessoa não está presente");   	
+        }
+    }*/
     
     // Método do botao de alterar
-    @GetMapping(value = "/alterar/{matricula}")
-    public String alterar(@PathVariable String matricula, Model model){
-        Optional<Aluno> aluno =  alunoRepository.findByMatricula(matricula);
+    @GetMapping(value = "/alterar/{id}")
+    public String alterar(@PathVariable Long id, Model model){
+        Optional<Aluno> aluno =  alunoRepository.findById((long) id);
         if (!aluno.isPresent()) {
         	throw new IllegalArgumentException("Pessoa inválida para alterar.");     	
         }
@@ -93,22 +121,26 @@ public class AlunoController {
     // Método de quando clica no botao confirmar a alteração
     @PostMapping(value = "/atualizar")
     public String atualizar(Aluno aluno){
-        Optional<Pessoa> oldPessoa = pessoaRepository.findByCpf(aluno.getPessoa().getCpf());
-        Optional<Aluno> oldAluno = alunoRepository.findByMatricula(aluno.getMatricula());
+        Optional<Pessoa> pessoa = pessoaRepository.findByCpf(aluno.getPessoa().getCpf());
+        Optional<Aluno> novoAluno = alunoRepository.findById((long) aluno.getId());
         
-        if(oldPessoa.isPresent()){
-        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null) || (oldAluno.isPresent())) {
-        		oldAluno.get().setId(aluno.getId());
-        		Aluno updated  =  oldAluno.get();
-        		updated.setId(aluno.getId());
-            	updated.setMatricula(aluno.getMatricula());
-            	updated.setAnoEntrada(aluno.getAnoEntrada());
-            	updated.getPessoa().setCpf(aluno.getPessoa().getCpf());
-                alunoRepository.save(updated);
+        if(novoAluno.isPresent()){ //se veio informações do aluno
+        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null)  && (pessoa != null)) { //se a matricula veio preenchida, ou seja, tem essa matricula salva no bd e se a pessoa veio preenchido
+        		novoAluno.get().setId(aluno.getId());
+        		novoAluno.get().getPessoa().setCpf(aluno.getPessoa().getCpf());
+        		novoAluno.get().setMatricula(aluno.getMatricula());
+        		novoAluno.get().setAnoEntrada(aluno.getAnoEntrada());
+        		alunoRepository.save(novoAluno.get());
                 return "alunos/paginaInicial";		
             }
+        	else {
+        		throw new IllegalArgumentException("Matricula já preenchida ou pessoa vazia");
+        	}
         }
-        throw new IllegalArgumentException("Erro ao alterar aluno.");
+        else {
+        	throw new IllegalArgumentException("O aluno não está presente");
+        }
+        
     }
 
     
