@@ -81,31 +81,6 @@ public class AlunoController {
 	       	 	throw new IllegalArgumentException("Pessoa não está presente");   	
 	        }
       }
-
-    
-    // Método do botão confirmar cadastro
-    /*@PostMapping(value = "/adicionar/{id}")
-    public String salvar(Long id, Aluno aluno){
-        Optional<Pessoa> pessoa =  pessoaRepository.findByCpf(aluno.getPessoa().getCpf()); 
-        Optional<Aluno> novoAluno = alunoRepository.findById((long) id);
-        
-        if(pessoa.isPresent()){
-        	if((alunoRepository.findByMatricula(aluno.getMatricula()) != null)) { //se não existe essa matricula no bd
-        		novoAluno.get().setId(aluno.getId());
-        		novoAluno.get().getPessoa().setCpf(aluno.getPessoa().getCpf());
-         		novoAluno.get().setMatricula(aluno.getMatricula());
-         		novoAluno.get().setAnoEntrada(aluno.getAnoEntrada());
-         		alunoRepository.save(novoAluno.get());
-	        	return "alunos/paginaInicial";		     
-        	}	
-        	else {
-           	 	throw new IllegalArgumentException("Matrícula já está cadastrada!");   	
-        	}
-       }
-        else {
-       	 	throw new IllegalArgumentException("Pessoa não está presente");   	
-        }
-    }*/
     
     // Método do botao de alterar
     @GetMapping(value = "/alterar/{id}")
